@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ArbitraryArithmetic" default="compile" basedir=".">
+
+  <!-- Directories -->
+  <property name="src.dir"    value="src"/>
+  <property name="build.dir"  value="build"/>
+  <property name="dist.dir"   value="dist"/>
+  <property name="main.class" value="MyInfArith"/>
+
+  <!-- Step 1: Initialize -->
+  <target name="init" description="Create build and dist directories">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+  </target>
+
+  <!-- Step 2: Compile all .java files -->
+  <target name="compile" depends="init" description="Compile Java sources">
+    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false"/>
+  </target>
+
+  <!-- Optional: Jar Packaging -->
+  <target name="jar" depends="compile" description="Package into executable JAR">
+    <jar destfile="${dist.dir}/aarithmetic.jar" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="${main.class}"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <!-- Optional: Fake 'test' target to satisfy run.py -->
+  <target name="test" depends="compile" description="Fake test for JSON-driven tests">
+    <echo message="Run 'python run.py test' to execute functional tests using testcases.json."/>
+  </target>
+
+</project>
